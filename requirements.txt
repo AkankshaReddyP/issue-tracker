@@ -1,0 +1,6 @@
+﻿fastapi
+uvicorn
+sqlmodel
+python-dotenv
+passlib[bcrypt]
+pyjwt
