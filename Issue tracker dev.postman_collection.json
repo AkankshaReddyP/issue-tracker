@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "fb8e773a-53ee-4efe-9d8f-b18c5e722ad9",
+		"name": "Issue tracker dev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "42346591",
+		"_collection_link": "https://gold-station-17677.postman.co/workspace/My-Workspace~7196f926-f475-4de7-8edd-fa960e3c311f/collection/42346591-fb8e773a-53ee-4efe-9d8f-b18c5e722ad9?action=share&source=collection_link&creator=42346591"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/signup?email=you@example.com&password=secret123",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"signup"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "you@example.com"
+						},
+						{
+							"key": "password",
+							"value": "secret123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "you@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret123",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{base_url}}/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzUwNTI1MTI5fQ.lNL8tFGnq8DpEfn1a2alYkbWW4n7ZquqiCpcoqEYwRI"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/me"
+			},
+			"response": []
+		},
+		{
+			"name": "Projects",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzUwNTI1MTI5fQ.lNL8tFGnq8DpEfn1a2alYkbWW4n7ZquqiCpcoqEYwRI"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/projects"
+			},
+			"response": []
+		},
+		{
+			"name": "Projects",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzUwNTI3MDQ2fQ.OLOb683LZQlu4vbcuHFhy_bs7XFe5Dob1ijRv5Xdyd4"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "My First Project",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/projects?name=My First Project ",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"projects"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "My First Project "
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Project by ID projects/id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzUwNTI3MDQ2fQ.OLOb683LZQlu4vbcuHFhy_bs7XFe5Dob1ijRv5Xdyd4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/projects/1"
+			},
+			"response": []
+		},
+		{
+			"name": "List issues",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzUwNTI3MDQ2fQ.OLOb683LZQlu4vbcuHFhy_bs7XFe5Dob1ijRv5Xdyd4"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{base_url}}/projects/1/issues"
+			},
+			"response": []
+		},
+		{
+			"name": "Create issues",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzUwNTI3MDQ2fQ.OLOb683LZQlu4vbcuHFhy_bs7XFe5Dob1ijRv5Xdyd4"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/projects/1/issues?title=First Issue&status=open",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"projects",
+						"1",
+						"issues"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "First Issue"
+						},
+						{
+							"key": "status",
+							"value": "open"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update project's name",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzUwNTI5Njg4fQ.GYg4pQHcJ1PDx8DoeFWaqvyntcyfwhi6cLC10UQHpos"
+					}
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\": \"Your New Project Name\" }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{base_url}}/projects/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Update issue",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzUwNTI5Njg4fQ.GYg4pQHcJ1PDx8DoeFWaqvyntcyfwhi6cLC10UQHpos"
+					}
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Updated issue title\",\r\n  \"status\": \"closed\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{base_url}}/projects/1/issues/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete issue",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzUwNTI5Njg4fQ.GYg4pQHcJ1PDx8DoeFWaqvyntcyfwhi6cLC10UQHpos"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "{{base_url}}/projects/1/issues/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete project",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzUwNTI5Njg4fQ.GYg4pQHcJ1PDx8DoeFWaqvyntcyfwhi6cLC10UQHpos"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "{{base_url}}/projects/1\n"
+			},
+			"response": []
+		}
+	]
+}
