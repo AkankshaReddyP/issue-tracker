@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 
+from sqlalchemy import Column, ForeignKey, Integer
 from sqlmodel import Field, SQLModel, Relationship
 
 class User(SQLModel, table=True):
@@ -26,7 +27,10 @@ class Project(SQLModel, table=True):
 
 class Issue(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    project_id: int = Field(foreign_key="project.id", nullable=False, index=True)
+    project_id: Optional[int] = Field(
+        default=None,
+        sa_column=Column(Integer, ForeignKey("project.id", ondelete="CASCADE"))
+    )
     title: str = Field(nullable=False)
     status: str = Field(
         default="open",

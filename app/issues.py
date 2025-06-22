@@ -1,22 +1,17 @@
 # app/issues.py
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlmodel import Session, select
 from typing import List, Optional
 from pydantic import BaseModel
-
-
-class IssueUpdate(BaseModel):
-    title: Optional[str] = None
-    status: Optional[str] = None  # ideally validate 'open'|'closed'
-
-
 
 from app.models import Issue, Project
 from app.db import engine
 from app.auth import get_current_user
 
-
+class IssueUpdate(BaseModel):
+    title: Optional[str] = None
+    status: Optional[str] = None  # 'open' or 'closed'
 
 router = APIRouter(
     prefix="/projects/{project_id}/issues",
@@ -25,14 +20,17 @@ router = APIRouter(
 )
 
 @router.get("/", response_model=List[Issue])
-def read_issues(project_id: int, current_user=Depends(get_current_user)):
+def read_issues(
+    project_id: int,
+    current_user=Depends(get_current_user)
+):
     """
     List all issues for a given project, if the user owns it.
     """
     with Session(engine) as session:
         project = session.get(Project, project_id)
         if not project or project.owner_id != current_user.id:
-            raise HTTPException(status_code=404, detail="Project not found")
+            raise HTTPException(404, "Project not found")
         issues = session.exec(
             select(Issue).where(Issue.project_id == project_id)
         ).all()
@@ -41,18 +39,18 @@ def read_issues(project_id: int, current_user=Depends(get_current_user)):
 @router.post("/", response_model=Issue, status_code=status.HTTP_201_CREATED)
 def create_issue(
     project_id: int,
-    *,
-    title: str,
-    status: str = "open",
+    title: str = Query(..., description="Issue title"),
+    status: str = Query("open", description="Issue status ('open' or 'closed')"),
     current_user=Depends(get_current_user)
 ):
     """
     Create a new issue under a project you own.
+    Title and status come from query parameters.
     """
     with Session(engine) as session:
         project = session.get(Project, project_id)
         if not project or project.owner_id != current_user.id:
-            raise HTTPException(status_code=404, detail="Project not found")
+            raise HTTPException(404, "Project not found")
         issue = Issue(title=title, status=status, project_id=project_id)
         session.add(issue)
         session.commit()
@@ -72,10 +70,10 @@ def update_issue(
     with Session(engine) as session:
         project = session.get(Project, project_id)
         if not project or project.owner_id != current_user.id:
-            raise HTTPException(status_code=404, detail="Project not found")
+            raise HTTPException(404, "Project not found")
         issue = session.get(Issue, issue_id)
         if not issue or issue.project_id != project_id:
-            raise HTTPException(status_code=404, detail="Issue not found")
+            raise HTTPException(404, "Issue not found")
         if issue_in.title is not None:
             issue.title = issue_in.title
         if issue_in.status is not None:
@@ -97,10 +95,10 @@ def delete_issue(
     with Session(engine) as session:
         project = session.get(Project, project_id)
         if not project or project.owner_id != current_user.id:
-            raise HTTPException(status_code=404, detail="Project not found")
+            raise HTTPException(404, "Project not found")
         issue = session.get(Issue, issue_id)
         if not issue or issue.project_id != project_id:
-            raise HTTPException(status_code=404, detail="Issue not found")
+            raise HTTPException(404, "Issue not found")
         session.delete(issue)
         session.commit()
     return None
