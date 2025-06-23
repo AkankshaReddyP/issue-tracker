@@ -27,7 +27,7 @@ A modern, full-stack issue tracking application built with **FastAPI** (backend)
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/issue-tracker.git
+git clone https://github.com/akankshareddyp/issue-tracker.git
 cd issue-tracker
  
 ```
