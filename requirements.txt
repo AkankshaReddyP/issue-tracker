@@ -4,3 +4,4 @@ sqlmodel
 python-dotenv
 passlib[bcrypt]
 pyjwt
+python-multipart
