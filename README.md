@@ -104,4 +104,19 @@ All endpoints except `/signup` and `/login` require a JWT in the header:
 
 A project cannot be deleted if it contains any open issues. All issues must be closed or deleted before deleting the project.
 
+##### Design Decisions
+
+The structure behind this app is a classic relational data model that fits for a typical issue tracker. Every user gets their own corner of the app, with as many projects as they need, and each project branches out into a set of issues. This approach keeps everyone’s work siloed, so users aren’t tripping over each other’s tasks—projects and their associated issues remain private and secure, tied directly to whoever owns them. On the technical side, the database design uses normalized schemas, complete with unique identifiers and foreign keys.It helps in scaling up later and makes permissions a whole lot easier.
+
+
+###### Authentication Approach
+
+When it comes to logging in, the system relies on JWT tokens for authentication—a choice that’s become fairly standard these days. Once a user signs in, the backend hands over a signed token, which the frontend then tucks away in its localstorage and attaches to any request that needs protection (via the Authorization: Bearer header). Except for signup and login, every API call expects a valid token, and the backend checks it each time. This way, only the rightful owner can peek into their data. All passwords are securely hashed before they’re stored anywhere, so even if someone got their hands on the database, user credentials would still be protected.
+
+###### Future Expansion
+
+Looking ahead, there’s plenty of room to grow. The system could easily evolve to support more collaborative features—for instance, tracking who reported or created an issue by adding more details in UI, or letting multiple users assign themselves or “watch” an issue through extra fields or linking tables. Introducing roles like ADMIN could open up organization-wide management, letting certain users oversee everything from projects to individual issues. To make things more versatile, the app might eventually support private, public, or shared projects, giving teams or even outside contributors the right level of access. And for those moments when words just aren’t enough, allowing users to upload screenshots or documents would make it much easier to communicate and keep everyone on the same page.
+
+
+
 
