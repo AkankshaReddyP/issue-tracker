@@ -45,14 +45,19 @@ source .venv/bin/activate
 # Install Python dependencies
 pip install -r requirements.txt
 
+#(Optional) If dependencies in requirements.txt couldn't be downloaded use following line of code to install packages required.
+pip install fastapi uvicorn python-dotenv passlib bcrypt passlib[brcypt] pyjwt sqlmodel python-multipart
+
 # Run the FastAPI server within a virtual environment
 python -m uvicorn app.main:app --reload
 ```
 The API will be available at: http://127.0.0.1:8000
 
 ### 3. Frontend Setup (React + TailwindCSS)
+ Open a new terminal to start frontend server
 
 ```bash
+cd issue-tracker
 cd issue-tracker-frontend 
 
 # Install dependencies
